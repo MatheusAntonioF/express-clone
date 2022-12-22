@@ -1,9 +1,13 @@
 import dotenv from 'dotenv';
 
-import express from './core';
+import Express from './core';
 
 dotenv.config();
 
-express.listen(process.env.PORT, () => {
-  console.log('Server listening on port', process.env.PORT);
+const app = new Express();
+
+// app.use();
+
+app.server.listen(process.env.PORT, () => {
+  console.log(`🚀 ~ Server listening on port ${process.env.PORT}`);
 });
