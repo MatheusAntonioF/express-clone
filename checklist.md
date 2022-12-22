@@ -1,0 +1,2 @@
+- [x] Handle GET requests
+- [ ] Handle POST requests
