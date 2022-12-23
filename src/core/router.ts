@@ -1,5 +1,3 @@
-import { IncomingMessage, ServerResponse } from 'http';
-
 // TODO use enum to define methods from a request
 // enum REQUEST_METHODS {
 //   GET = 'GET',
@@ -7,21 +5,20 @@ import { IncomingMessage, ServerResponse } from 'http';
 // }
 // type REQUEST_METHODS = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-type IHandler = (
-  request: IncomingMessage,
-  response: ServerResponse<IncomingMessage>
-) => void;
+import { Request, Response } from './@types';
+
+type IHandler = (request: Request, response: Response) => void;
 
 type IRouteMethodsHandler = {
   [method: string]: IHandler;
 };
 
-interface IRoutes {
+export interface IRoutes {
   [baseUrl: string]: IRouteMethodsHandler;
 }
 
 class Router {
-  private routes: IRoutes;
+  routes: IRoutes;
 
   constructor() {
     this.routes = {};
@@ -44,22 +41,19 @@ class Router {
   }
 
   public get(routeUrl: string, handler: IHandler) {
-    if (this.routes[routeUrl]) return;
-
-    // add new route to route's list
     this.routes = {
-      routeUrl: {
+      [routeUrl]: {
+        ...this.routes[routeUrl],
         GET: handler,
       },
     };
   }
 
   public post(routeUrl: string, handler: IHandler) {
-    if (this.routes[routeUrl]) return;
-
     // add new route to route's list
     this.routes = {
-      routeUrl: {
+      [routeUrl]: {
+        ...this.routes[routeUrl],
         POST: handler,
       },
     };
