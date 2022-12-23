@@ -5,9 +5,9 @@
 // }
 // type REQUEST_METHODS = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-import { Request, Response } from './@types';
+import { IRequest, IResponse } from './@types';
 
-type IHandler = (request: Request, response: Response) => void;
+type IHandler = (request: IRequest, response: IResponse) => void;
 
 type IRouteMethodsHandler = {
   [method: string]: IHandler;
@@ -30,7 +30,7 @@ class Router {
     const parsedRoutes: IRoutes = {};
 
     Object.entries(RouterInstance.routes).map(([restOfUrl, Handler]) => {
-      // TODO create validation to routes with double dash
+      // TODO create validation to routes with double "/"
 
       const fullUrl = `${baseUrl}/${restOfUrl}`;
 
@@ -50,7 +50,6 @@ class Router {
   }
 
   public post(routeUrl: string, handler: IHandler) {
-    // add new route to route's list
     this.routes = {
       [routeUrl]: {
         ...this.routes[routeUrl],
@@ -62,8 +61,9 @@ class Router {
 
 export { Router };
 
-const globalRoutes = {
-  '/users': {
-    GET: (request: unknown, response: unknown) => {},
-  },
-};
+// example routes
+// {
+//   '/users': {
+//     GET: (request: unknown, response: unknown) => {},
+//   },
+// };

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 
-import Express from './core';
-
+import Express from './core/express.class';
 import { routes } from './routes';
 
 dotenv.config();

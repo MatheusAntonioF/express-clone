@@ -1,21 +1,13 @@
-import { Router } from './core/router';
+import { Router } from './core/router.class';
+
+import { UsersControllers } from './controllers/users.controller';
+
+const usersController = new UsersControllers();
 
 const routes = new Router();
 
-routes.get('/users', (request, response) => {
-  console.log('cheguei na controller');
+routes.get('/users', usersController.index);
 
-  const res = { message: 'Hello world' };
-
-  // return response.end(JSON.stringify({ message: 'Hello world' }));
-
-  return response.json(res);
-});
-
-routes.post('/users', (request, response) => {
-  console.log(request.body);
-
-  return response.end();
-});
+routes.post('/users', usersController.create);
 
 export { routes };
